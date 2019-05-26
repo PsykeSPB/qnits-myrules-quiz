@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  vue:
+    container_name: vue
+    image: psykespb/vue 
+    volumes:
+      - ./app:/home/node/app
+    user: node
+    working_dir: /home/node/app
+    ports:
+      - "8080:8080"
+    command: "yarn serve"
