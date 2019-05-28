@@ -105,34 +105,19 @@ export default {
       return true;
     },
     submit() {
-      this.axios.get('api.json')
+      this.axios.post('api.php', {
+        name: this.name,
+        phone: this.nPhone,
+        external_id: + new Date(),
+      })
         .then(({ data }) => {
-          const params = {
-            name: this.name,
-            phone: this.phone,
-            external_id: + new Date(),
-            ...data.params,
-          };
-          const order = {
-            qnit_id: data.qnit_id,
-            token: data.token,
-            method: data.method,
-            params: params,
-          };
-
-          // this.axios.post('http://api.qnits.ru/api', order)
-          //   .then(resp => {
-          //     window.location.assign(`/thanks.html${this.query}`);
-          //   })
-          //   .catch(err => {
-          //     console.error(err);
-          //   });
-
-          window.location.assign(`/thanks.html${this.query}`);
+          if (data === 'ok') {
+            window.location.assign(`/thanks.html${this.query}`);
+          }
         })
         .catch(err => {
           console.error(err);
-        })
+        });
     },
   },
 };
